@@ -26,7 +26,7 @@ Random: Click [here](https://www.4shared.com/s/dhsxOnLwH) to download
 To use conda environment to run this experiment, please consult [here](https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html) 
 
 ## Flowchart
-<img src="" width="300">
+<img src="https://github.com/cissagatto/TCP-Random-H/blob/main/comunity-paper-Page-1.png" width="300">
 
 ## Scripts
 This source code consists of an R project for R Studio and the following R scripts:
