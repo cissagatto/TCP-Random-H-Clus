@@ -96,6 +96,24 @@ execute <- function(ds, dataset_name, number_dataset,
 
 
   cat("\n\n###################################################################")
+  cat("\n# ====> TCP-TR-NH: COPY TO GOOGLE DRIVE                             #")
+  cat("\n#####################################################################\n\n")
+  origem1 = diretorios$folderValidate
+  destino1 = paste("cloud:[2022]ResultadosExperimentos/Communities/Test/",
+                   similarity, "/", dataset_name, "/H/Reports/Validation", sep="")
+  comando1 = paste("rclone copy ", origem1, " ",
+                   destino1, sep="")
+  cat("\n\n\n", comando1, "\n\n\n")
+  a = print(system(comando1))
+  a = as.numeric(a)
+  if(a != 0){
+    stop("Erro RCLONE")
+    quit("yes")
+  }
+  cat("\n\n")
+
+
+  cat("\n\n###################################################################")
   cat("\n# ====> RUN: build and test partitions                              #")
   cat("\n#####################################################################\n\n")
   timeBuild = system.time(resBT <- buildAndTest(ds,
@@ -153,6 +171,24 @@ execute <- function(ds, dataset_name, number_dataset,
                                                     number_cores,
                                                     folderResults,
                                                     diretorios))
+
+
+  cat("\n\n###################################################################")
+  cat("\n# ====> TCP-TR-NH: COPY TO GOOGLE DRIVE                             #")
+  cat("\n#####################################################################\n\n")
+  origem1 = diretorios$folderValidate
+  destino1 = paste("cloud:[2022]ResultadosExperimentos/Communities/Test/",
+                   similarity, "/", dataset_name, "/H/Reports/Tested", sep="")
+  comando1 = paste("rclone copy ", origem1, " ",
+                   destino1, sep="")
+  cat("\n\n\n", comando1, "\n\n\n")
+  a = print(system(comando1))
+  a = as.numeric(a)
+  if(a != 0){
+    stop("Erro RCLONE")
+    quit("yes")
+  }
+  cat("\n\n")
 
 
   cat("\n\n###################################################################")

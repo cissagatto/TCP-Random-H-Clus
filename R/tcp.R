@@ -245,93 +245,23 @@ result_set <- t(data.matrix(timeTCP))
 setwd(diretorios$folderTest)
 write.csv(result_set, "Runtime.csv")
 
-
-
-cat("\n\n###################################################################")
-cat("\n# ====> TCP-Random-H: APAGANDO PASTA DOS DATASETS                      #")
-cat("\n#####################################################################\n\n")
-str2 = paste("rm -rf ", diretorios$folderDatasets, sep="")
-res=system(str2)
-if(res!=0){break}else{cat("\napagou")}
-
-
-
-#################################################################
-str2 = paste("rm -rf ", diretorios$folderCommunities, sep="")
+str2 = paste("cp -r ", diretorios$folderTest ,
+             " ", diretorios$folderReports, sep="")
 print(system(str2))
 
-str2 = paste("rm -rf ", diretorios$folderPartitions, sep="")
+str2 = paste("cp -r ", diretorios$folderValidate ,
+             " ", diretorios$folderReports, sep="")
 print(system(str2))
-################################################################
 
+str = "~/TCP-Random-H/Reports/"
+if(dir.exists(str)==FALSE){dir.create(str)}
 
-
-
-cat("\n\n###################################################################")
-cat("\n# ====> TCP-Random-H: COMPRESS TEST RESULTS                             #")
-cat("\n#####################################################################\n\n")
-
-str = paste(" tar -zcf ", diretorios$folderTest ,
-            "/test.tar.gz ", diretorios$folderReports, sep="")
-res=system(str)
-if(res!=0){break}else{cat("\ncomprimiu")}
-
-
-str2 = paste("cp ", diretorios$folderTest ,
-             "/test.tar.gz ", diretorios$folderReports, sep="")
-res=system(str2)
-if(res!=0){break}else{cat("\ncopiou")}
-
-
-str2 = paste("rm -rf ", diretorios$folderTest, sep="")
-res=system(str2)
-if(res!=0){break}else{cat("\napagou")}
-
-
-
-cat("\n\n###################################################################")
-cat("\n# ====> TCP-Random-H: COMPRESS VALIDATE RESULTS                   #")
-cat("\n#####################################################################\n\n")
-
-str = paste(" tar -zcf ", diretorios$folderValidate ,
-            "/validate.tar.gz ", diretorios$folderReports, sep="")
-res=system(str)
-if(res!=0){break}else{cat("\ncomprimiu")}
-
-
-str2 = paste("cp ", diretorios$folderValidate ,
-             "/validate.tar.gz ", diretorios$folderReports, sep="")
-res=system(str2)
-if(res!=0){break}else{cat("\ncopiou")}
-
-
-str2 = paste("rm -rf ", diretorios$folderValidate, sep="")
-res=system(str2)
-if(res!=0){break}else{cat("\napagou")}
-
-
-
-
-cat("\n\n###################################################################")
-cat("\n# ====> TCP-TR-NH: COPY TO HOME                                     #")
-cat("\n#####################################################################\n\n")
-
-str0 = "~/TCP-Random-H/Reports"
-if(dir.exists(str0)==FALSE){dir.create(str0)}
-
-str1 = paste(str0, "/", similarity, sep="")
+str1 = paste(str, "/", dataset_name, sep="")
 if(dir.exists(str1)==FALSE){dir.create(str1)}
 
-str2 = paste(str1, "/H", sep="")
-if(dir.exists(str2)==FALSE){dir.create(str2)}
-
-str3 = paste(str2, "/", dataset_name, sep="")
-if(dir.exists(str3)==FALSE){dir.create(str3)}
-
-str4 = paste("cp -r ", diretorios$folderReports, "/* ", str3, sep="")
-print(system(str4))
-
-
+str2 = paste("cp -r ", diretorios$folderReports ,
+             " ", str1, sep="")
+print(system(str2))
 
 
 str40 = paste("rm -r ", diretorios$folderResults)
