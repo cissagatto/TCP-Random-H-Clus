@@ -18,8 +18,8 @@
 ##################################################################################################
 
 
-FolderRoot = "~/TCP-Random-H/"
-FolderScripts = paste(FolderRoot, "/R/", sep="")
+FolderRoot = "~/TCP-Random-H-Clus"
+FolderScripts = paste(FolderRoot, "/R", sep="")
 
 
 library("foreign", quietly = TRUE)

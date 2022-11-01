@@ -18,22 +18,24 @@
 ##################################################################################################
 
 
-FolderRoot = "~/TCP-Random-H/"
-FolderScripts = paste(FolderRoot, "/R/", sep="")
+FolderRoot = "~/TCP-Random-H-Clus"
+FolderScripts = paste(FolderRoot, "/R", sep="")
 
 
-##################################################################################################
-# FUNCTION DIRECTORIES                                                                           #
-#   Objective:                                                                                   #
-#      Creates all the necessary folders for the project.                                        #
-#   Parameters:                                                                                  #
-#      dataset_name: name of the dataset                                                         #
-#      folderResults: path to save process the algorithm. Example: "/dev/shm/birds",             #
-#                     "/scratch/birds", "/home/usuario/birds", "/C:/Users/usuario/birds"         #
-#   Return:                                                                                      #
-#      All path directories                                                                      #
-##################################################################################################
-directories <- function(dataset_name, folderResults){
+
+#########################################################################
+# FUNCTION DIRECTORIES
+#   Objective:
+#      Creates all the necessary folders for the project.
+#   Parameters:
+#      dataset_name: name of the dataset
+#      folderResults: path to save process the algorithm. Example:
+#                     "/dev/shm/birds", "/scratch/birds",
+#                     "/home/usuario/birds", "/C:/Users/usuario/birds"
+#   Return:
+#      All path directories
+######################################################################
+directories <- function(dataset_name, folderResults, similarity){
 
   retorno = list()
 
@@ -41,8 +43,9 @@ directories <- function(dataset_name, folderResults){
   # RESULTS FOLDER:                                                           #
   # Parameter from command line. This folder will be delete at the end of the #
   # execution. Other folder is used to store definitely the results.          #
-  # Example: "/dev/shm/res"                                                   #
+  # Example: "/dev/shm/j-GpositiveGO"                                         #
   #############################################################################
+  retorno$folderResults = folderResults
   if(dir.exists(folderResults) == TRUE){
     setwd(folderResults)
     dir_folderResults = dir(folderResults)
@@ -61,10 +64,10 @@ directories <- function(dataset_name, folderResults){
   # Get information about the files within folder utils that already exists   #
   # in the project. It's needed to run CLUS framework and convert CSV files   #
   # in ARFF files correctly.                                                  #
-  # "/home/elaine/TestCommunitiesPartitions/utils"                            #
+  # "~/TCP-KNN-H-Clus/utils"                                                  #
   #############################################################################
   folderUtils = paste(FolderRoot, "/utils", sep="")
-  #cat("\n\t", folderUtils)
+  retorno$folderUtils = folderUtils
   if(dir.exists(folderUtils) == TRUE){
     setwd(folderUtils)
     dir_folderUtils = dir(folderUtils)
@@ -83,10 +86,10 @@ directories <- function(dataset_name, folderResults){
   # project. This folder store the files from cross-validation and will be    #
   # use to get the label space to modeling the label correlations and         #
   # compute silhouete to choose the best hybrid partition.                    #
-  # "/home/elaine/TestCommunitiesPartitions/datasets"                         #
+  # "/dev/shm/j-GpositiveGO/datasets"                                         #
   #############################################################################
   folderDatasets = paste(folderResults, "/datasets", sep="")
-  #cat("\n\t", folderDatasets)
+  retorno$folderDatasets = folderDatasets
   if(dir.exists(folderDatasets) == TRUE){
     setwd(folderDatasets)
     dir_folderDatasets = dir(folderDatasets)
@@ -104,10 +107,10 @@ directories <- function(dataset_name, folderResults){
   # This folder store the label space for each FOLD from the cross-validation #
   # which was computed in the Cross-Validation Multi-Label code.              #
   # In this way, we don't need to load the entire dataset into the running    #
-  # "/home/elaine/TestCommunitiesPartitions/datasets/GpositiveGO/LabelSpace"  #
+  # "/dev/shm/j-GpositiveGO/datasets/LabelSpace"                              #
   #############################################################################
   folderLabelSpace = paste(folderDatasets, "/LabelSpace", sep="")
-  #cat("\n\t", folderLabelSpace)
+  retorno$folderLabelSpace = folderLabelSpace
   if(dir.exists(folderLabelSpace) == TRUE){
     setwd(folderLabelSpace)
     dir_folderLabelSpace = dir(folderLabelSpace)
@@ -125,10 +128,10 @@ directories <- function(dataset_name, folderResults){
   # Get the names of the labels from this dataset. This will be used in the   #
   # code to create the groups for each partition. Is a way to guarantee the   #
   # use of the correct names labels.                                          #
-  # "/home/elaine/TestCommunitiesPartitions/datasets/GpositiveGO/NamesLabels" #
+  # "/dev/shm/j-GpositiveGO/datasets/NamesLabels"                             #
   #############################################################################
   folderNamesLabels = paste(folderDatasets, "/NamesLabels", sep="")
-  #cat("\n\t", folderNamesLabels)
+  retorno$folderNamesLabels = folderNamesLabels
   if(dir.exists(folderNamesLabels) == TRUE){
     setwd(folderNamesLabels)
     dir_folderNamesLabels = dir(folderNamesLabels)
@@ -145,10 +148,10 @@ directories <- function(dataset_name, folderResults){
   # CROSS VALIDATION FOLDER:                                                  #
   # Path to the folders and files from cross-validation for the specific      #
   # dataset                                                                   #
-  # "/home/elaine/TestCommunitiesPartitions/datasets/GpositiveGO/CrossValidation"
+  # "/dev/shm/j-GpositiveGO/datasets/CrossValidation"                         #
   #############################################################################
   folderCV = paste(folderDatasets, "/CrossValidation", sep="")
-  #cat("\n\t", folderCV)
+  retorno$folderCV = folderCV
   if(dir.exists(folderCV) == TRUE){
     setwd(folderCV)
     dir_folderCV = dir(folderCV)
@@ -164,10 +167,10 @@ directories <- function(dataset_name, folderResults){
   #############################################################################
   # TRAIN CROSS VALIDATION FOLDER:                                            #
   # Path to the train files from cross-validation for the specific dataset    #                                                                   #
-  # "/home/elaine/TestCommunitiesPartitions/datasets/GpositiveGO/CrossValidation/Tr"
+  # "/dev/shm/j-GpositiveGO/datasets/CrossValidation/Tr"                      #
   #############################################################################
   folderCVTR = paste(folderCV, "/Tr", sep="")
-  #cat("\n\t", folderCVTR)
+  retorno$folderCVTR = folderCVTR
   if(dir.exists(folderCVTR) == TRUE){
     setwd(folderCVTR)
     dir_folderCVTR = dir(folderCVTR)
@@ -183,10 +186,10 @@ directories <- function(dataset_name, folderResults){
   #############################################################################
   # TEST CROSS VALIDATION FOLDER:                                             #
   # Path to the test files from cross-validation for the specific dataset     #                                                                   #
-  # "/home/elaine/TestCommunitiesPartitions/datasets/GpositiveGO/CrossValidation/Ts"
+  # "/dev/shm/j-GpositiveGO/datasets/CrossValidation/Ts"                      #
   #############################################################################
   folderCVTS = paste(folderCV, "/Ts", sep="")
-  #cat("\n\t", folderCVTS)
+  retorno$folderCVTS = folderCVTS
   if(dir.exists(folderCVTS) == TRUE){
     setwd(folderCVTS)
     dir_folderCVTS = dir(folderCVTS)
@@ -203,10 +206,10 @@ directories <- function(dataset_name, folderResults){
   # VALIDATION CROSS VALIDATION FOLDER:                                       #
   # Path to the validation files from cross-validation for the specific       #
   # dataset                                                                   #
-  # "/home/elaine/TestCommunitiesPartitions/datasets/GpositiveGO/CrossValidation/Vl"
+  # "/dev/shm/j-GpositiveGO/datasets/CrossValidation/Vl"                      #
   #############################################################################
   folderCVVL = paste(folderCV, "/Vl", sep="")
-  #cat("\n\t", folderCVVL)
+  retorno$folderCVVL = folderCVVL
   if(dir.exists(folderCVVL) == TRUE){
     setwd(folderCVVL)
     dir_folderCVVL = dir(folderCVVL)
@@ -220,44 +223,11 @@ directories <- function(dataset_name, folderResults){
 
 
   #############################################################################
-  # RESULTS DATASET FOLDER:                                                   #
-  # Path to the results for the specific dataset that is running              #
-  # "/dev/shm/t1/GpositiveGO"                                                 #
-  #############################################################################
-  folderTested = paste(folderResults, "/Tested", sep="")
-  #cat("\n\t", folderResultsDataset)
-  if(dir.exists(folderTested) == TRUE){
-    setwd(folderTested)
-    dir_folderTested = dir(folderTested)
-    n_folderTested = length(dir_folderTested)
-  } else {
-    dir.create(folderTested)
-    setwd(folderTested)
-    dir_folderTested = dir(folderTested)
-    n_folderTested = length(dir_folderTested)
-  }
-
-  folderValidate = paste(folderResults, "/Validation", sep="")
-  #cat("\n\t", folderResultsDataset)
-  if(dir.exists(folderValidate) == TRUE){
-    setwd(folderValidate)
-    dir_folderValidate = dir(folderValidate)
-    n_folderValidate = length(folderValidate)
-  } else {
-    dir.create(folderValidate)
-    setwd(folderValidate)
-    dir_folderValidate = dir(folderValidate)
-    n_folderValidate = length(folderValidate)
-  }
-
-
-  #############################################################################
-  # PARTITIONS FOLDER:                                                        #
-  # Folder that has the partitions previously computed                        #
-  # "/home/elaine/TestCommunitiesPartitions/Partitions"                       #
+  # FOLDER PARTITIONS                                                         #
+  # "/dev/shm/j-GpositiveGO/Partitions"                                       #
   #############################################################################
   folderPartitions = paste(folderResults, "/Partitions", sep="")
-  #cat("\n\t", folderPartitions)
+  retorno$folderPartitions = folderPartitions
   if(dir.exists(folderPartitions) == TRUE){
     setwd(folderPartitions)
     dir_folderPartitions = dir(folderPartitions)
@@ -270,8 +240,12 @@ directories <- function(dataset_name, folderResults){
   }
 
 
+  #############################################################################
+  # FOLDER COMMUNITIES                                                        #
+  # "/dev/shm/j-GpositiveGO/Communities"                                      #
+  #############################################################################
   folderCommunities = paste(folderResults, "/Communities", sep="")
-  #cat("\n\t", folderPartitions)
+  retorno$folderCommunities = folderCommunities
   if(dir.exists(folderCommunities ) == TRUE){
     setwd(folderCommunities)
     dir_folderCommunities  = dir(folderCommunities )
@@ -283,8 +257,116 @@ directories <- function(dataset_name, folderResults){
     n_folderCommunities  = length(dir_folderCommunities )
   }
 
+  #############################################################################
+  # FOLDER VALIDATION SILHOUETTE                                              #
+  # "/dev/shm/j-GpositiveGO/Val-Silho"                                        #
+  #############################################################################
+  folderValSilho = paste(folderResults, "/Val-Silho", sep="")
+  retorno$folderValSilho = folderValSilho
+  if(dir.exists(folderValSilho) == TRUE){
+    setwd(folderValSilho)
+    dir_folderValSilho = dir(folderValSilho)
+    n_folderValSilho = length(dir_folderValSilho)
+  } else {
+    dir.create(folderValSilho)
+    setwd(folderValSilho)
+    dir_folderValSilho = dir(folderValSilho)
+    n_folderValSilho = length(dir_folderValSilho)
+  }
+
+  #############################################################################
+  # FOLDER VALIDATION MACRO-F1                                                #
+  #  "/dev/shm/j-GpositiveGO/Val-MaF1"                                        #
+  #############################################################################
+  folderValMaF1 = paste(folderResults, "/Val-MaF1", sep="")
+  retorno$folderValMaF1 = folderValMaF1
+  if(dir.exists(folderValMaF1) == TRUE){
+    setwd(folderValMaF1)
+    dir_folderValMaF1 = dir(folderValMaF1)
+    n_folderValMaF1 = length(dir_folderValMaF1)
+  } else {
+    dir.create(folderValMaF1)
+    setwd(folderValMaF1)
+    dir_folderValMaF1 = dir(folderValMaF1)
+    n_folderValMaF1 = length(dir_folderValMaF1)
+  }
+
+  #############################################################################
+  # FOLDER VALIDATION MACRO-F1                                                #
+  # "/dev/shm/j-GpositiveGO/Val-MiF1"                                         #
+  #############################################################################
+  folderValMiF1 = paste(folderResults, "/Val-MiF1", sep="")
+  retorno$folderValMiF1 = folderValMiF1
+  if(dir.exists(folderValMiF1) == TRUE){
+    setwd(folderValMiF1)
+    dir_folderValMiF1 = dir(folderValMiF1)
+    n_folderValMiF1 = length(dir_folderValMiF1)
+  } else {
+    dir.create(folderValMiF1)
+    setwd(folderValMiF1)
+    dir_folderValMiF1 = dir(folderValMiF1)
+    n_folderValMiF1 = length(dir_folderValMiF1)
+  }
+
+  #############################################################################
+  # FOLDER TEST SILHOUETTE                                                    #
+  # "/dev/shm/j-GpositiveGO/Test-Silho"                                       #
+  #############################################################################
+  folderTestSilho = paste(folderResults, "/Test-Silho", sep="")
+  retorno$folderTestSilho = folderTestSilho
+  if(dir.exists(folderTestSilho) == TRUE){
+    setwd(folderTestSilho)
+    dir_folderTestSilho = dir(folderTestSilho)
+    n_folderTestSilho = length(dir_folderTestSilho)
+  } else {
+    dir.create(folderTestSilho)
+    setwd(folderTestSilho)
+    dir_folderTestSilho = dir(folderTestSilho)
+    n_folderTestSilho = length(dir_folderTestSilho)
+  }
+
+
+  #############################################################################
+  # FOLDER TEST MACRO F1                                                      #
+  # "/dev/shm/j-GpositiveGO/Test-MaF1"                                        #
+  #############################################################################
+  folderTestMaF1 = paste(folderResults, "/Test-MaF1", sep="")
+  retorno$folderTestMaF1 = folderTestMaF1
+  if(dir.exists(folderTestMaF1) == TRUE){
+    setwd(folderTestMaF1)
+    dir_folderTestMaF1 = dir(folderTestMaF1)
+    n_folderTestMaF1 = length(dir_folderTestMaF1)
+  } else {
+    dir.create(folderTestMaF1)
+    setwd(folderTestMaF1)
+    dir_folderTestMaF1 = dir(folderTestMaF1)
+    n_folderTestMaF1 = length(dir_folderTestMaF1)
+  }
+
+
+  #############################################################################
+  # FOLDER TEST MICRO F1                                                      #
+  # "/dev/shm/j-GpositiveGO/Test-MiF1"                                        #
+  #############################################################################
+  folderTestMiF1 = paste(folderResults, "/Test-MiF1", sep="")
+  retorno$folderTestMiF1 = folderTestMiF1
+  if(dir.exists(folderTestMiF1) == TRUE){
+    setwd(folderTestMiF1)
+    dir_folderTestMiF1 = dir(folderTestMiF1)
+    n_folderTestMiF1 = length(dir_folderTestMiF1)
+  } else {
+    dir.create(folderTestMiF1)
+    setwd(folderTestMiF1)
+    dir_folderTestMiF1 = dir(folderTestMiF1)
+    n_folderTestMiF1 = length(dir_folderTestMiF1)
+  }
+
+  #############################################################################
+  # FOLDER RESULTS REPORTS                                                    #
+  # "/dev/shm/j-GpositiveGO/Reports"                                          #
+  #############################################################################
   folderReports = paste(folderResults, "/Reports", sep="")
-  #cat("\n\t", folderPartitions)
+  retorno$folderReports = folderReports
   if(dir.exists(folderReports) == TRUE){
     setwd(folderReports)
     dir_folderReports = dir(folderReports)
@@ -296,56 +378,91 @@ directories <- function(dataset_name, folderResults){
     n_folderReports = length(dir_folderReports)
   }
 
-
   #############################################################################
-  # RETURN ALL PATHS                                                          #
+  # FOLDER ROOT REPORTS                                                       #
+  # "~/TCP-KNN-H-Clus/Reports"                                                #
   #############################################################################
-  retorno$folderResults = folderResults
-  retorno$folderUtils = folderUtils
-  retorno$folderDatasets = folderDatasets
-  retorno$folderLabelSpace = folderLabelSpace
-  retorno$folderNamesLabels = folderNamesLabels
-  retorno$folderCV = folderCV
-  retorno$folderCVTR = folderCVTR
-  retorno$folderCVTS = folderCVTS
-  retorno$folderCVVL = folderCVVL
-  retorno$folderTested = folderTested
-  retorno$folderPartitions = folderPartitions
-  retorno$folderCommunities = folderCommunities
-  retorno$folderReports = folderReports
-  retorno$folderValidate = folderValidate
-
-  #############################################################################
-  # RETURN ALL DIRS                                                           #
-  #############################################################################
-  retorno$dir_folderResults = dir_folderResults
-  retorno$dir_folderUtils = dir_folderUtils
-  retorno$dir_folderDatasets = dir_folderDatasets
-  retorno$dir_folderLabelSpace = dir_folderLabelSpace
-  retorno$dir_folderNamesLabels = dir_folderNamesLabels
-  retorno$dir_folderCV = dir_folderCV
-  retorno$dir_folderCVTR = dir_folderCVTR
-  retorno$dir_folderCVTS = dir_folderCVTS
-  retorno$dir_folderCVVL = dir_folderCVVL
-  retorno$dir_folderTested = dir_folderTested
-  retorno$dir_folderPartitions = dir_folderPartitions
+  folderRootReports = paste(FolderRoot, "/Reports", sep="")
+  retorno$folderRootReports = folderRootReports
+  if(dir.exists(folderRootReports) == TRUE){
+    setwd(folderRootReports)
+    dir_folderRootReports = dir(folderRootReports)
+    n_folderRootReports = length(dir_folderRootReports)
+  } else {
+    dir.create(folderRootReports)
+    setwd(folderRootReports)
+    dir_folderRootReports = dir(folderRootReports)
+    n_folderRootReports = length(dir_folderRootReports)
+  }
 
 
   #############################################################################
-  # RETURN ALL LENGHTS                                                        #
+  # FOLDER ROOT REPORTS SIMILARITY                                            #
+  # "~/TCP-KNN-H-Clus/Reports/jaccard"                                        #
   #############################################################################
-  retorno$n_folderResults = n_folderResults
-  retorno$n_folderUtils = n_folderUtils
-  retorno$n_folderDatasets = n_folderDatasets
-  retorno$n_folderLabelSpace = n_folderLabelSpace
-  retorno$n_folderNamesLabels = n_folderNamesLabels
-  retorno$n_folderCV = n_folderCV
-  retorno$n_folderCVTR = n_folderCVTR
-  retorno$n_folderCVTS = n_folderCVTS
-  retorno$n_folderCVVL = n_folderCVVL
-  retorno$n_folderPartitions = n_folderPartitions
-  retorno$n_folderTested = n_folderTested
+  folderRepSim = paste(folderRootReports, "/", similarity, sep="")
+  retorno$folderRepSim = folderRepSim
+  if(dir.exists(folderRepSim) == TRUE){
+    setwd(folderRepSim)
+    dir_folderRepSim = dir(folderRepSim)
+    n_folderRepSim = length(dir_folderRepSim)
+  } else {
+    dir.create(folderRepSim)
+    setwd(folderRepSim)
+    dir_folderRepSim = dir(folderRepSim)
+    n_folderRepSim = length(dir_folderRepSim)
+  }
 
+  #############################################################################
+  # FOLDER ROOT REPORTS SIMILARITY MACRO F1                                   #
+  # "~/TCP-KNN-H-Clus/Reports/jaccard/Silhouette"                             #
+  #############################################################################
+  folderRepSilho = paste(folderRepSim, "/Silhoutte", sep="")
+  retorno$folderRepSilho = folderRepSilho
+  if(dir.exists(folderRepSilho) == TRUE){
+    setwd(folderRepSilho)
+    dir_folderRepSilho = dir(folderRepSilho)
+    n_folderRepSilho = length(dir_folderRepSilho)
+  } else {
+    dir.create(folderRepSilho)
+    setwd(folderRepSilho)
+    dir_folderRepSilho = dir(folderRepSilho)
+    n_folderRepSilho = length(dir_folderRepSilho)
+  }
+
+  #############################################################################
+  # FOLDER ROOT REPORTS SIMILARITY MACRO F1                                   #
+  # "~/TCP-KNN-H-Clus/Reports/jaccard/MacroF1"                                #
+  #############################################################################
+  folderRepMaF1 = paste(folderRepSim, "/MacroF1", sep="")
+  retorno$folderRepMaF1 = folderRepMaF1
+  if(dir.exists(folderRepMaF1) == TRUE){
+    setwd(folderRepMaF1)
+    dir_folderRepMaF1 = dir(folderRepMaF1)
+    n_folderRepMaF1 = length(dir_folderRepMaF1)
+  } else {
+    dir.create(folderRepMaF1)
+    setwd(folderRepMaF1)
+    dir_folderRepMaF1 = dir(folderRepMaF1)
+    n_folderRepMaF1 = length(dir_folderRepMaF1)
+  }
+
+  #############################################################################
+  # FOLDER ROOT REPORTS SIMILARITY MACRO F1                                   #
+  # "~/TCP-KNN-H-Clus/Reports/jaccard/MicroF1"                                #
+  #############################################################################
+  folderRepMiF1 = paste(folderRepSim, "/MicroF1", sep="")
+  retorno$folderRepMiF1 = folderRepMiF1
+  if(dir.exists(folderRepMiF1) == TRUE){
+    setwd(folderRepMiF1)
+    dir_folderRepMiF1 = dir(folderRepMiF1)
+    n_folderRepMiF1 = length(dir_folderRepMiF1)
+  } else {
+    dir.create(folderRepMiF1)
+    setwd(folderRepMiF1)
+    dir_folderRepMiF1 = dir(folderRepMiF1)
+    n_folderRepMiF1 = length(dir_folderRepMiF1)
+  }
 
   return(retorno)
   gc()
@@ -366,15 +483,12 @@ directories <- function(dataset_name, folderResults){
 #   Return:                                                                                      #
 #       Training set labels space                                                                #
 ##################################################################################################
-labelSpace <- function(ds, dataset_name, number_folds, folderResults){
+labelSpace <- function(parameters){
 
   retorno = list()
 
   # return all fold label space
   classes = list()
-
-  # get the directories
-  diretorios = directories(dataset_name, folderResults)
 
   # from the first FOLD to the last
   k = 1
@@ -383,7 +497,7 @@ labelSpace <- function(ds, dataset_name, number_folds, folderResults){
     # cat("\n\tFold: ", k)
 
     # enter folder train
-    setwd(diretorios$folderCVTR)
+    setwd(parameters$Folders$folderCVTR)
 
     # get the correct fold cross-validation
     nome_arquivo = paste(dataset_name, "-Split-Tr-", k, ".csv", sep="")
@@ -411,22 +525,22 @@ labelSpace <- function(ds, dataset_name, number_folds, folderResults){
   return(retorno)
 
   gc()
-  cat("\n##################################################################################################")
-  cat("\n# FUNCTION LABEL SPACE: END                                                                      #")
-  cat("\n##################################################################################################")
+  cat("\n################################################################")
+  cat("\n# FUNCTION LABEL SPACE: END                                    #")
+  cat("\n################################################################")
   cat("\n\n\n\n")
 }
 
 
-################################################################################################
-# FUNCTION INFO DATA SET                                                                       #
-#  Objective                                                                                   #
-#     Gets the information that is in the "datasets-hpmlk.csv" file.                           #
-#  Parameters                                                                                  #
-#     dataset: the specific dataset                                                            #
-#  Return                                                                                      #
-#     Everything in the "datasets-hpmlk.csv" file.                                             #
-################################################################################################
+###################################################################
+# FUNCTION INFO DATA SET
+#  Objective
+#     Gets the information that is in the "datasets-hpmlk.csv" file.
+#  Parameters
+#     dataset: the specific dataset
+#  Return
+#     Everything in the "datasets-hpmlk.csv" file.
+####################################################################
 infoDataSet <- function(dataset){
 
   retorno = list()
@@ -462,7 +576,7 @@ infoDataSet <- function(dataset){
 }
 
 
-##################################################################################################
-# Please, any errors, contact us: elainececiliagatto@gmail.com                                   #
-# Thank you very much!                                                                           #
-##################################################################################################
+#############################################################################
+# Please, any errors, contact us: elainececiliagatto@gmail.com
+# Thank you very much!
+#############################################################################
