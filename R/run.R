@@ -111,28 +111,28 @@ execute <- function(parameters){
     parameters$best.silhouette = resBest
 
 
-    # cat("\n\n#######################################################")
-    # cat("\n# COPY VALIDATION TO GOOGLE DRIVE                       #")
-    # cat("\n#########################################################\n\n")
-    # origem1 = parameters$Folders$folderValSilho
-    # destino1 = paste("nuvem:Clus/Communities/Test/",
-    #                  similarity, "/Silhouette/", dataset_name,
-    #                  "/Knn-H/Validation", sep="")
-    # comando1 = paste("rclone copy ", origem1, " ",
-    #                  destino1, sep="")
-    # cat("\n\n\n", comando1, "\n\n\n")
-    # a = print(system(comando1))
-    # a = as.numeric(a)
-    # if(a != 0){
-    #   stop("Erro RCLONE")
-    #   quit("yes")
-    # }
-    # cat("\n\n")
+    cat("\n\n#######################################################")
+    cat("\n# COPY VALIDATION TO GOOGLE DRIVE                       #")
+    cat("\n#########################################################\n\n")
+    origem1 = parameters$Folders$folderValSilho
+    destino1 = paste("nuvem:Clus/Communities/Test/",
+                     similarity, "/Silhouette/", dataset_name,
+                     "/Knn-H/Validation", sep="")
+    comando1 = paste("rclone copy ", origem1, " ",
+                     destino1, sep="")
+    cat("\n\n\n", comando1, "\n\n\n")
+    a = print(system(comando1))
+    a = as.numeric(a)
+    if(a != 0){
+      stop("Erro RCLONE")
+      quit("yes")
+    }
+    cat("\n\n")
 
 
-    str2 = paste("cp -r ", diretorios$folderValSilho,
-                 " ", diretorios$folderRepSilho, sep="")
-    print(system(str2))
+    # str2 = paste("cp -r ", diretorios$folderValSilho,
+    #              " ", diretorios$folderRepSilho, sep="")
+    # print(system(str2))
 
 
 
@@ -185,27 +185,27 @@ execute <- function(parameters){
     timeBest = system.time(resTHP <- maf1.best.partitions(parameters))
 
 
-    # cat("\n\n#############################################################")
-    # cat("\n# RUN COPY VALIDATION TO GOOGLE DRIVE                       #")
-    # cat("\n#############################################################\n\n")
-    # origem1 = parameters$Folders$folderValMaF1
-    # destino1 = paste("nuvem:Clus/Communities/Test/",
-    #                  similarity, "/Macro-F1/", dataset_name,
-    #                  "/Knn-H/Validation", sep="")
-    # comando1 = paste("rclone copy ", origem1, " ",
-    #                  destino1, sep="")
-    # cat("\n\n\n", comando1, "\n\n\n")
-    # a = print(system(comando1))
-    # a = as.numeric(a)
-    # if(a != 0){
-    #   stop("Erro RCLONE")
-    #   quit("yes")
-    # }
-    # cat("\n\n")
+    cat("\n\n#############################################################")
+    cat("\n# RUN COPY VALIDATION TO GOOGLE DRIVE                       #")
+    cat("\n#############################################################\n\n")
+    origem1 = parameters$Folders$folderValMaF1
+    destino1 = paste("nuvem:Clus/Communities/Test/",
+                     similarity, "/Macro-F1/", dataset_name,
+                     "/Knn-H/Validation", sep="")
+    comando1 = paste("rclone copy ", origem1, " ",
+                     destino1, sep="")
+    cat("\n\n\n", comando1, "\n\n\n")
+    a = print(system(comando1))
+    a = as.numeric(a)
+    if(a != 0){
+      stop("Erro RCLONE")
+      quit("yes")
+    }
+    cat("\n\n")
 
-    str2 = paste("cp -r ", diretorios$folderValMaF1 ,
-                 " ", diretorios$folderRepMaF1 , sep="")
-    print(system(str2))
+    # str2 = paste("cp -r ", diretorios$folderValMaF1 ,
+    #              " ", diretorios$folderRepMaF1 , sep="")
+    # print(system(str2))
 
 
     cat("\n\n#############################################################")
