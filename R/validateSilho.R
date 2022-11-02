@@ -431,12 +431,14 @@ silho.best.partitions <- function(parameters){
 
     FolderSplit = paste(parameters$Folders$folderValSilho,
                         "/Split-", f, sep="")
+    #
 
     # fold-1-best-silho.csv
     nome = paste(FolderSplit, "/fold-", f, "-best-silho.csv", sep="")
 
     resultado = data.frame(read.csv(nome))
     all.silho = rbind(all.silho, resultado)
+
 
     # fold-1-sparcification.csv
     nome2 = paste(parameters$Folders$folderValSilho

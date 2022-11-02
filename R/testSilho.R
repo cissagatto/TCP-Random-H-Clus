@@ -733,7 +733,7 @@ silho.gather.evaluated <- function(parameters){
     cat("\n#==========================")
     cat("\n# Fold \t", f)
 
-    ######################################################################
+    ####################################################################
     setwd(FolderTSplit)
     str = paste("Split-", f, "-Evaluated.csv", sep="")
     avaliado = data.frame(read.csv(str))
@@ -747,6 +747,7 @@ silho.gather.evaluated <- function(parameters){
     setwd(FolderTSplit)
     write.csv(avaliadoKnn, paste("Evaluated-Fold-", f, ".csv", sep=""),
               row.names = FALSE)
+
 
     f = f + 1
     gc()

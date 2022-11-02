@@ -727,8 +727,7 @@ maf1.test.gather.evaluated <- function(parameters){
     cat("\n#==========================")
     cat("\n# Fold \t", f)
 
-
-    ######################################################################
+    ###################################################################
     setwd(FolderTSplit)
     str = paste("Split-", f, "-Evaluated.csv", sep="")
     avaliado = data.frame(read.csv(str))
