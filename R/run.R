@@ -130,7 +130,7 @@ execute <- function(parameters){
     # cat("\n\n")
 
 
-    str = paste(parameteres$Folders$folderRepSilho, "/",
+    str = paste(parameters$Folders$folderRepSilho, "/",
                 parameters$Dataset.Name, sep="")
     if(dir.exists(str)==FALSE){dir.create(str)}
 
@@ -221,7 +221,7 @@ execute <- function(parameters){
                  " ", str, sep="")
     print(system(str2))
 
-    str2 = paste("cp -r ", parameteres$Folders$folderReports ,
+    str2 = paste("cp -r ", parameters$Folders$folderReports ,
                  "/* ", str , sep="")
     print(system(str2))
 

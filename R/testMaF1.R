@@ -61,8 +61,8 @@ maf1.test.build <- function(parameters){
   parameters = parameters
 
   f = 1
-  # buildParalel <- foreach(f = 1:parameters$Number.Folds) %dopar%{
-  while(f<=parameters$Number.Folds){
+  buildParalel <- foreach(f = 1:parameters$Number.Folds) %dopar%{
+  # while(f<=parameters$Number.Folds){
 
     cat("\n#=========================================================")
     cat("\n# Fold: ", f)
@@ -436,7 +436,7 @@ maf1.test.build <- function(parameters){
       gc()
     } # fim do grupo
 
-    f = f + 1
+    # f = f + 1
     gc()
   } # fim do for each
 
@@ -727,7 +727,8 @@ maf1.test.gather.evaluated <- function(parameters){
     cat("\n#==========================")
     cat("\n# Fold \t", f)
 
-    ###################################################################
+
+    ######################################################################
     setwd(FolderTSplit)
     str = paste("Split-", f, "-Evaluated.csv", sep="")
     avaliado = data.frame(read.csv(str))
