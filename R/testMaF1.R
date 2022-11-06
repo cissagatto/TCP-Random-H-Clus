@@ -735,7 +735,7 @@ maf1.test.gather.evaluated <- function(parameters){
     avaliadoKnn = cbind(avaliadoKnn, avaliado[,2])
     #nomesThreshold[k] = paste("Fold-", f, sep="")
     #names(avaliadoKnn)[k+2] = nomesThreshold[k]
-    unlink(str, recursive = TRUE)
+    #unlink(str, recursive = TRUE)
 
     avaliadoKnn = avaliadoKnn[,-1]
     names(avaliadoKnn) = nomesThreshold
@@ -759,68 +759,68 @@ maf1.test.gather.evaluated <- function(parameters){
 
 
 
-##############################################################################
-# FUNCTION ORGANIZE EVALUATION                                               #
-#   Objective                                                                #
-#   Parameters                                                               #
-##############################################################################
+
+#####################################################################
+#
+#####################################################################
 maf1.test.organize.evaluation <- function(parameters){
 
-  dfs = list()
-  dfs2 = list()
+  measures = c("accuracy","average-precision","clp","coverage","F1",
+               "hamming-loss","macro-AUC", "macro-F1","macro-precision",
+               "macro-recall","margin-loss","micro-AUC","micro-F1",
+               "micro-precision","micro-recall","mlp","one-error",
+               "precision","ranking-loss", "recall","subset-accuracy","wlp")
 
-  x = 1
-  while(x<=parameters$Number.Folds){
-    dfs[[x]] = maf1.test.build.data.frame()
-    x = x + 1
-    gc()
-  }
 
-  # from fold = 1 to number_folders
+  apagar = c(0)
+  resultado = data.frame(apagar)
+  nomes = c("")
+
   f = 1
-  while(f<=parameters$Number.Folds){
+  while(f<=10){
+    cat("\n\tFold ", f)
 
-    cat("\n#=========================================================")
-    cat("\n# Fold: ", f)
-    cat("\n#=========================================================")
+    ######################################################################
 
-    parameters = parameters
+    # "/dev/shm/j-GpositiveGO/Partitions/Split-1"
+    FolderPSplit = paste(parameters$Folders$folderPartitions,
+                         "/Split-", f, sep="")
 
-    ########################################################################
-    FolderRoot = "~/TCP-Random-H-Clus"
-    FolderScripts = paste(FolderRoot, "/R", sep="")
-
-    ###########################################################################
-    # "/dev/shm/j-GpositiveGO/Test-MaF1/Split-1"
+    # "/dev/shm/j-GpositiveGO/Test-Silho/Split-1"
     FolderTSplit = paste(parameters$Folders$folderTestMaF1,
                          "/Split-", f, sep="")
 
-    #########################################################
-    #setwd(FolderTempKnn)
     setwd(FolderTSplit)
-    str = paste("Evaluated-Fold-", f, ".csv", sep="")
-    dfs2[[f]] = data.frame(read.csv(str))
-
-    #unlink(str, recursive = TRUE)
+    nome = paste("Split-", f, "-Evaluated.csv",sep="")
+    arquivo = data.frame(read.csv(nome))
+    resultado = cbind(resultado, arquivo[,2])
+    nomes[f] = paste("Fold-", f,sep="")
 
     f = f + 1
     gc()
+  }
 
-  } # end folds
+  resultado = resultado[,-1]
+  names(resultado) = nomes
+  resultado[is.na(resultado)] <- 0
 
-  numCol = ncol(dfs2[[1]])-1
+  media = data.frame(apply(resultado, 1, mean))
+  media = cbind(measures, media)
+  names(media) = c("Measures", "Mean")
 
-  nomeKnn2 = paste("Mean-10Folds-h.csv", sep="")
-  names(dfs2) = c("Measures", "Mean10Folds")
-  write.csv(dfs2, nomeKnn2, row.names = FALSE)
+  resultado = cbind(measures, resultado)
 
+  setwd(parameters$Folders$folderTestMaF1)
+  write.csv(media, "Mean-10Folds.csv", row.names = FALSE)
+  write.csv(resultado, "All-10folds.csv", row.names = FALSE)
 
   gc()
   cat("\n################################################################")
-  cat("\n# TEST MACRO F1: Organize End                                  #")
+  cat("\n# TEST SILHO: Organize End                                     #")
   cat("\n################################################################")
   cat("\n\n\n\n")
 }
+
 
 
 

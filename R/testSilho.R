@@ -741,7 +741,7 @@ silho.gather.evaluated <- function(parameters){
     avaliadoKnn = cbind(avaliadoKnn, avaliado[,2])
     #nomesThreshold[f] = paste("Fold-", f, sep="")
     #names(avaliadoKnn)[f+2] = nomesThreshold[f]
-    unlink(str, recursive = TRUE)
+    #unlink(str, recursive = TRUE)
 
     avaliadoKnn = avaliadoKnn[,-1]
     setwd(FolderTSplit)
@@ -763,62 +763,59 @@ silho.gather.evaluated <- function(parameters){
 }
 
 
-
 #####################################################################
 #
 #####################################################################
 silho.organize.evaluation <- function(parameters){
 
-  dfs = list()
-  dfs2 = list()
+  measures = c("accuracy","average-precision","clp","coverage","F1",
+               "hamming-loss","macro-AUC", "macro-F1","macro-precision",
+               "macro-recall","margin-loss","micro-AUC","micro-F1",
+               "micro-precision","micro-recall","mlp","one-error",
+               "precision","ranking-loss", "recall","subset-accuracy","wlp")
 
-  x = 1
-  while(x<=parameters$Number.Folds){
-    dfs[[x]] = silho.build.data.frame()
-    x = x + 1
-    gc()
-  }
 
-  cat("\n#=======================================")
-  # from fold = 1 to number_folders
+  apagar = c(0)
+  resultado = data.frame(apagar)
+  nomes = c("")
+
   f = 1
-  while(f<=parameters$Number.Folds){
+  while(f<=10){
+    cat("\n\tFold ", f)
 
-    cat("\n# Fold: ", f)
+    ######################################################################
 
-    ################################################################
+    # "/dev/shm/j-GpositiveGO/Partitions/Split-1"
+    FolderPSplit = paste(parameters$Folders$folderPartitions,
+                         "/Split-", f, sep="")
 
-    FolderPartSplit = paste(parameters$Folders$folderPartitions,
-                            "/Split-", f, sep="")
-
-    setwd(FolderPartSplit)
-    knn_H = data.frame(read.csv(paste("fold-", f,
-                                      "-h-choosed.csv", sep="")))
-    total_knn_H = nrow(knn_H)
-
+    # "/dev/shm/j-GpositiveGO/Test-Silho/Split-1"
     FolderTSplit = paste(parameters$Folders$folderTestSilho,
                          "/Split-", f, sep="")
 
-    #########################################################
-    #setwd(FolderTempKnn)
     setwd(FolderTSplit)
-    str = paste("Evaluated-Fold-", f, ".csv", sep="")
-    dfs2[[f]] = data.frame(read.csv(str))
-
-    unlink(str, recursive = TRUE)
+    nome = paste("Split-", f, "-Evaluated.csv",sep="")
+    arquivo = data.frame(read.csv(nome))
+    resultado = cbind(resultado, arquivo[,2])
+    nomes[f] = paste("Fold-", f,sep="")
 
     f = f + 1
     gc()
+  }
 
-  } # end folds
-  cat("\n#========================================")
+  resultado = resultado[,-1]
+  names(resultado) = nomes
+  resultado[is.na(resultado)] <- 0
 
+  media = data.frame(apply(resultado, 1, mean))
+  media = cbind(measures, media)
+  names(media) = c("Measures", "Mean")
 
-  numCol = ncol(dfs2[[1]])-1
+  resultado = cbind(measures, resultado)
 
-  nomeKnn2 = paste("Mean-10Folds-h.csv", sep="")
-  names(dfs2) = c("Measures", "Mean10Folds")
-  write.csv(dfs2, nomeKnn2, row.names = FALSE)
+  setwd(parameters$Folders$folderTestSilho)
+  write.csv(media, "Mean-10Folds.csv", row.names = FALSE)
+  write.csv(resultado, "All-10folds.csv", row.names = FALSE)
 
   gc()
   cat("\n################################################################")
