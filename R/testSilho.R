@@ -813,7 +813,7 @@ silho.organize.evaluation <- function(parameters){
 
   resultado = cbind(measures, resultado)
 
-  setwd(parameters$Folders$folderTestSilho)
+  setwd(parameters$Folders$folderReports)
   write.csv(media, "Mean-10Folds.csv", row.names = FALSE)
   write.csv(resultado, "All-10folds.csv", row.names = FALSE)
 
