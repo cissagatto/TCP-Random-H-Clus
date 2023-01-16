@@ -7,7 +7,7 @@ This code is part of my doctoral research at PPG-CC/DC/UFSCar. Test Random Parti
 
 
 ## Flowchart
-<img src="https://github.com/cissagatto/TCP-Random-NH-ECC/blob/main/HPML-IJCNN-2023-Page-1.png" width="600">
+<img src="https://github.com/cissagatto/TCP-Random-H-Clus/blob/main/random-graphs-Page-1.png" width="600">
 
 ## Preparing your experiment
 
