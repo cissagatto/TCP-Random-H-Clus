@@ -400,69 +400,69 @@ directories <- function(dataset_name, folderResults, similarity){
   # FOLDER ROOT REPORTS SIMILARITY                                            #
   # "~/TCP-KNN-H-Clus/Reports/jaccard"                                        #
   #############################################################################
-  folderRepSim = paste(folderRootReports, "/", similarity, sep="")
-  retorno$folderRepSim = folderRepSim
-  if(dir.exists(folderRepSim) == TRUE){
-    setwd(folderRepSim)
-    dir_folderRepSim = dir(folderRepSim)
-    n_folderRepSim = length(dir_folderRepSim)
-  } else {
-    dir.create(folderRepSim)
-    setwd(folderRepSim)
-    dir_folderRepSim = dir(folderRepSim)
-    n_folderRepSim = length(dir_folderRepSim)
-  }
+  # folderRepSim = paste(folderRootReports, "/", similarity, sep="")
+  # retorno$folderRepSim = folderRepSim
+  # if(dir.exists(folderRepSim) == TRUE){
+  #   setwd(folderRepSim)
+  #   dir_folderRepSim = dir(folderRepSim)
+  #   n_folderRepSim = length(dir_folderRepSim)
+  # } else {
+  #   dir.create(folderRepSim)
+  #   setwd(folderRepSim)
+  #   dir_folderRepSim = dir(folderRepSim)
+  #   n_folderRepSim = length(dir_folderRepSim)
+  # }
 
   #############################################################################
   # FOLDER ROOT REPORTS SIMILARITY MACRO F1                                   #
   # "~/TCP-KNN-H-Clus/Reports/jaccard/Silhouette"                             #
   #############################################################################
-  folderRepSilho = paste(folderRepSim, "/Silhoutte", sep="")
-  retorno$folderRepSilho = folderRepSilho
-  if(dir.exists(folderRepSilho) == TRUE){
-    setwd(folderRepSilho)
-    dir_folderRepSilho = dir(folderRepSilho)
-    n_folderRepSilho = length(dir_folderRepSilho)
-  } else {
-    dir.create(folderRepSilho)
-    setwd(folderRepSilho)
-    dir_folderRepSilho = dir(folderRepSilho)
-    n_folderRepSilho = length(dir_folderRepSilho)
-  }
+  # folderRepSilho = paste(folderRepSim, "/Silhoutte", sep="")
+  # retorno$folderRepSilho = folderRepSilho
+  # if(dir.exists(folderRepSilho) == TRUE){
+  #   setwd(folderRepSilho)
+  #   dir_folderRepSilho = dir(folderRepSilho)
+  #   n_folderRepSilho = length(dir_folderRepSilho)
+  # } else {
+  #   dir.create(folderRepSilho)
+  #   setwd(folderRepSilho)
+  #   dir_folderRepSilho = dir(folderRepSilho)
+  #   n_folderRepSilho = length(dir_folderRepSilho)
+  # }
 
   #############################################################################
   # FOLDER ROOT REPORTS SIMILARITY MACRO F1                                   #
   # "~/TCP-KNN-H-Clus/Reports/jaccard/MacroF1"                                #
   #############################################################################
-  folderRepMaF1 = paste(folderRepSim, "/MacroF1", sep="")
-  retorno$folderRepMaF1 = folderRepMaF1
-  if(dir.exists(folderRepMaF1) == TRUE){
-    setwd(folderRepMaF1)
-    dir_folderRepMaF1 = dir(folderRepMaF1)
-    n_folderRepMaF1 = length(dir_folderRepMaF1)
-  } else {
-    dir.create(folderRepMaF1)
-    setwd(folderRepMaF1)
-    dir_folderRepMaF1 = dir(folderRepMaF1)
-    n_folderRepMaF1 = length(dir_folderRepMaF1)
-  }
+  # folderRepMaF1 = paste(folderRepSim, "/MacroF1", sep="")
+  # retorno$folderRepMaF1 = folderRepMaF1
+  # if(dir.exists(folderRepMaF1) == TRUE){
+  #   setwd(folderRepMaF1)
+  #   dir_folderRepMaF1 = dir(folderRepMaF1)
+  #   n_folderRepMaF1 = length(dir_folderRepMaF1)
+  # } else {
+  #   dir.create(folderRepMaF1)
+  #   setwd(folderRepMaF1)
+  #   dir_folderRepMaF1 = dir(folderRepMaF1)
+  #   n_folderRepMaF1 = length(dir_folderRepMaF1)
+  # }
 
   #############################################################################
   # FOLDER ROOT REPORTS SIMILARITY MACRO F1                                   #
   # "~/TCP-KNN-H-Clus/Reports/jaccard/MicroF1"                                #
   #############################################################################
-  folderRepMiF1 = paste(folderRepSim, "/MicroF1", sep="")
-  retorno$folderRepMiF1 = folderRepMiF1
-  if(dir.exists(folderRepMiF1) == TRUE){
-    setwd(folderRepMiF1)
-    dir_folderRepMiF1 = dir(folderRepMiF1)
-    n_folderRepMiF1 = length(dir_folderRepMiF1)
-  } else {
-    dir.create(folderRepMiF1)
-    setwd(folderRepMiF1)
-    dir_folderRepMiF1 = dir(folderRepMiF1)
-    n_folderRepMiF1 = length(dir_folderRepMiF1)
-  }
+  # folderRepMiF1 = paste(folderRepSim, "/MicroF1", sep="")
+  # retorno$folderRepMiF1 = folderRepMiF1
+  # if(dir.exists(folderRepMiF1) == TRUE){
+  #   setwd(folderRepMiF1)
+  #   dir_folderRepMiF1 = dir(folderRepMiF1)
+  #   n_folderRepMiF1 = length(dir_folderRepMiF1)
+  # } else {
+  #   dir.create(folderRepMiF1)
+  #   setwd(folderRepMiF1)
+  #   dir_folderRepMiF1 = dir(folderRepMiF1)
+  #   n_folderRepMiF1 = length(dir_folderRepMiF1)
+  # }
 
   return(retorno)
   gc()

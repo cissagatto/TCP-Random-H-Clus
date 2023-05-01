@@ -111,23 +111,23 @@ execute <- function(parameters){
     parameters$best.silhouette = resBest
 
 
-    cat("\n\n#######################################################")
-    cat("\n# COPY VALIDATION TO GOOGLE DRIVE                       #")
-    cat("\n#########################################################\n\n")
-    origem1 = parameters$Folders$folderValSilho
-    destino1 = paste("nuvem:Clus/Communities/Test/",
-                     similarity, "/Silhouette/", dataset_name,
-                     "/H/Validation", sep="")
-    comando1 = paste("rclone copy ", origem1, " ",
-                     destino1, sep="")
-    cat("\n\n\n", comando1, "\n\n\n")
-    a = print(system(comando1))
-    a = as.numeric(a)
-    if(a != 0){
-      stop("Erro RCLONE")
-      quit("yes")
-    }
-    cat("\n\n")
+    # cat("\n\n#######################################################")
+    # cat("\n# COPY VALIDATION TO GOOGLE DRIVE                       #")
+    # cat("\n#########################################################\n\n")
+    # origem1 = parameters$Folders$folderValSilho
+    # destino1 = paste("nuvem:Clus/Communities/Test/",
+    #                  similarity, "/Silhouette/", dataset_name,
+    #                  "/H/Validation", sep="")
+    # comando1 = paste("rclone copy ", origem1, " ",
+    #                  destino1, sep="")
+    # cat("\n\n\n", comando1, "\n\n\n")
+    # a = print(system(comando1))
+    # a = as.numeric(a)
+    # if(a != 0){
+    #   stop("Erro RCLONE")
+    #   quit("yes")
+    # }
+    # cat("\n\n")
 
 
     # str = paste(parameters$Folders$folderRepSilho, "/",
@@ -142,6 +142,21 @@ execute <- function(parameters){
     #              "/* ", str , sep="")
     # print(system(str2))
 
+
+    str0 = "~/TCP-Random-H-Clus/Reports"
+    if(dir.exists(str0)==FALSE){dir.create(str0)}
+
+    str2 = paste(str0, "/silhouette", sep="")
+    if(dir.exists(str2)==FALSE){dir.create(str2)}
+
+    str3 = paste(str2, "/", dataset_name, sep="")
+    if(dir.exists(str3)==FALSE){dir.create(str3)}
+
+    str1 = paste(str3, "/validation", sep="")
+    if(dir.exists(str1)==FALSE){dir.create(str1)}
+
+    str4 = paste("cp -r ", diretorios$folderValSilho, "/* ", str1, sep="")
+    print(system(str4))
 
 
 
@@ -194,23 +209,39 @@ execute <- function(parameters){
     timeBest = system.time(resTHP <- maf1.best.partitions(parameters))
 
 
-    cat("\n\n#############################################################")
-    cat("\n# RUN COPY VALIDATION TO GOOGLE DRIVE                       #")
-    cat("\n#############################################################\n\n")
-    origem1 = parameters$Folders$folderValMaF1
-    destino1 = paste("nuvem:Clus/Communities/Test/",
-                     similarity, "/Macro-F1/", dataset_name,
-                     "/H/Validation", sep="")
-    comando1 = paste("rclone copy ", origem1, " ",
-                     destino1, sep="")
-    cat("\n\n\n", comando1, "\n\n\n")
-    a = print(system(comando1))
-    a = as.numeric(a)
-    if(a != 0){
-      stop("Erro RCLONE")
-      quit("yes")
-    }
-    cat("\n\n")
+    str0 = "~/TCP-Random-H-Clus/Reports"
+    if(dir.exists(str0)==FALSE){dir.create(str0)}
+
+    str2 = paste(str0, "/macro", sep="")
+    if(dir.exists(str2)==FALSE){dir.create(str2)}
+
+    str3 = paste(str2, "/", dataset_name, sep="")
+    if(dir.exists(str3)==FALSE){dir.create(str3)}
+
+    str1 = paste(str3, "/validation", sep="")
+    if(dir.exists(str1)==FALSE){dir.create(str1)}
+
+    str4 = paste("cp -r ", diretorios$folderValSilho, "/* ", str1, sep="")
+    print(system(str4))
+
+
+    # cat("\n\n#############################################################")
+    # cat("\n# RUN COPY VALIDATION TO GOOGLE DRIVE                       #")
+    # cat("\n#############################################################\n\n")
+    # origem1 = parameters$Folders$folderValMaF1
+    # destino1 = paste("nuvem:Clus/Communities/Test/",
+    #                  similarity, "/Macro-F1/", dataset_name,
+    #                  "/H/Validation", sep="")
+    # comando1 = paste("rclone copy ", origem1, " ",
+    #                  destino1, sep="")
+    # cat("\n\n\n", comando1, "\n\n\n")
+    # a = print(system(comando1))
+    # a = as.numeric(a)
+    # if(a != 0){
+    #   stop("Erro RCLONE")
+    #   quit("yes")
+    # }
+    # cat("\n\n")
 
 
     # str = paste(parameters$Folders$diretorios$folderRepMaF1, "/",

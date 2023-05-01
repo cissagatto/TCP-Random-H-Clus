@@ -1,8 +1,8 @@
 rm(list=ls())
 
 cat("\n\n##############################################################")
-  cat("\n# START TCP-Random-H-Clus                                            #")
-  cat("\n##############################################################\n\n")
+cat("\n# START TCP-Random-H-Clus                                            #")
+cat("\n##############################################################\n\n")
 
 ###############################################################################
 # TEST COMMUNITIES PARTITIONS
@@ -28,15 +28,15 @@ cat("\n\n##############################################################")
 
 
 cat("\n\n##############################################################")
-  cat("\n# TCP-Random-H-Clus SET WORK SPACE                                  #")
-  cat("\n##############################################################\n\n")
-  FolderRoot = "~/TCP-Random-H-Clus"
-  FolderScripts = paste(FolderRoot, "/R", sep="")
+cat("\n# TCP-Random-H-Clus SET WORK SPACE                                  #")
+cat("\n##############################################################\n\n")
+FolderRoot = "~/TCP-Random-H-Clus"
+FolderScripts = paste(FolderRoot, "/R", sep="")
 
 
 cat("\n\n##############################################################")
-  cat("\n# TCP-Random-H-Clus LOAD SOURCES                                    #")
-  cat("\n##############################################################\n\n")
+cat("\n# TCP-Random-H-Clus LOAD SOURCES                                    #")
+cat("\n##############################################################\n\n")
 setwd(FolderScripts)
 source("libraries.R")
 
@@ -48,23 +48,23 @@ source("run.R")
 
 
 cat("\n\n##############################################################")
-  cat("\n# TCP-Random-H-Clus OPTIONS CONFIGURATIONS                          #")
-  cat("\n##############################################################\n\n")
+cat("\n# TCP-Random-H-Clus OPTIONS CONFIGURATIONS                          #")
+cat("\n##############################################################\n\n")
 options(java.parameters = "-Xmx64g")
 options(show.error.messages = TRUE)
 options(scipen=20)
 
 
 cat("\n\n##############################################################")
-  cat("\n# TCP-Random-H-Clus READ DATASETS                                   #")
-  cat("\n##############################################################\n\n")
+cat("\n# TCP-Random-H-Clus READ DATASETS                                   #")
+cat("\n##############################################################\n\n")
 setwd(FolderRoot)
 datasets <- data.frame(read.csv("datasets-original.csv"))
 
 
 cat("\n\n##############################################################")
-  cat("\n# TCP-Random-H-Clus GET THE ARGUMENTS COMMAND LINE                  #")
-  cat("\n##############################################################\n\n")
+cat("\n# TCP-Random-H-Clus GET THE ARGUMENTS COMMAND LINE                  #")
+cat("\n##############################################################\n\n")
 args <- commandArgs(TRUE)
 
 
@@ -75,7 +75,7 @@ args <- commandArgs(TRUE)
 #############################################################################
 
 # config_file = "/home/cissa/TCP-Random-H-Clus/config-files/Random-H/Silhouette/chrs-GpositiveGO.csv"
-# config_file = "~/TCP-Random-H-Clus-Clus/config-files/Random-H/Silhouette/ctros-GpositiveGO.csv"
+# config_file = "/home/biomal/TCP-Random-H-Clus/config-files/Random-H/Silhouette/chrs-GpositiveGO.csv"
 
 
 config_file <- args[1]
@@ -148,19 +148,6 @@ parameters$Number.Cores = number_cores
 ds = datasets[number_dataset,]
 parameters$Dataset.Info = ds
 
-
-cat("\n################################################################\n")
-print(ds)
-cat("\n# DATASET PATH: \t", dataset_path)
-cat("\n# TEMPORARY PATH: \t", folderResults)
-cat("\n# PARTITIONS PATH: \t", Partitions_Path)
-cat("\n# VALIDATION: \t", validation)
-cat("\n# SIMILARITY:  \t", similarity)
-cat("\n# DATASET NAME:  \t", dataset_name)
-cat("\n# NUMBER DATASET: \t", number_dataset)
-cat("\n# NUMBER X-FOLDS CROSS-VALIDATION: \t", number_folds)
-cat("\n# NUMBER CORES: \t", number_cores)
-cat("\n################################################################\n\n")
 
 
 ###############################################################################
@@ -352,43 +339,43 @@ if(parameters$Validation==1){
   print(timeTCP)
   cat("\n")
 
-
-  cat("\n\n#######################################################")
-  cat("\n# COPY TEST TO GOOGLE DRIVE                           #")
-  cat("\n#########################################################\n\n")
-  origem1 = parameters$Folders$folderTestSilho
-  destino1 = paste("nuvem:Clus/Communities/Test/",
-                   similarity, "/Silhouette/", dataset_name,
-                   "/H/Tested", sep="")
-  comando1 = paste("rclone copy ", origem1, " ",
-                   destino1, sep="")
-  cat("\n\n\n", comando1, "\n\n\n")
-  a = print(system(comando1))
-  a = as.numeric(a)
-  if(a != 0){
-    stop("Erro RCLONE")
-    quit("yes")
-  }
-  cat("\n\n")
-
-
-  cat("\n\n#######################################################")
-  cat("\n# COPY REPORTS TO GOOGLE DRIVE                        #")
-  cat("\n#######################################################\n\n")
-  origem1 = parameters$Folders$folderReports
-  destino1 = paste("nuvem:Clus/Communities/Test/",
-                   similarity, "/Silhouette/", dataset_name,
-                   "/H/", sep="")
-  comando1 = paste("rclone copy ", origem1, " ",
-                   destino1, sep="")
-  cat("\n\n\n", comando1, "\n\n\n")
-  a = print(system(comando1))
-  a = as.numeric(a)
-  if(a != 0){
-    stop("Erro RCLONE")
-    quit("yes")
-  }
-  cat("\n\n")
+#
+#   cat("\n\n#######################################################")
+#   cat("\n# COPY TEST TO GOOGLE DRIVE                           #")
+#   cat("\n#########################################################\n\n")
+#   origem1 = parameters$Folders$folderTestSilho
+#   destino1 = paste("nuvem:Clus/Communities/Test/",
+#                    similarity, "/Silhouette/", dataset_name,
+#                    "/H/Tested", sep="")
+#   comando1 = paste("rclone copy ", origem1, " ",
+#                    destino1, sep="")
+#   cat("\n\n\n", comando1, "\n\n\n")
+#   a = print(system(comando1))
+#   a = as.numeric(a)
+#   if(a != 0){
+#     stop("Erro RCLONE")
+#     quit("yes")
+#   }
+#   cat("\n\n")
+#
+#
+#   cat("\n\n#######################################################")
+#   cat("\n# COPY REPORTS TO GOOGLE DRIVE                        #")
+#   cat("\n#######################################################\n\n")
+#   origem1 = parameters$Folders$folderReports
+#   destino1 = paste("nuvem:Clus/Communities/Test/",
+#                    similarity, "/Silhouette/", dataset_name,
+#                    "/H/", sep="")
+#   comando1 = paste("rclone copy ", origem1, " ",
+#                    destino1, sep="")
+#   cat("\n\n\n", comando1, "\n\n\n")
+#   a = print(system(comando1))
+#   a = as.numeric(a)
+#   if(a != 0){
+#     stop("Erro RCLONE")
+#     quit("yes")
+#   }
+#   cat("\n\n")
 
 
 
@@ -400,6 +387,24 @@ if(parameters$Validation==1){
   #
   # str2 = paste("cp -r ", diretorios$folderReports , "/* ", str , sep="")
   # print(system(str2))
+
+
+
+  str0 = "~/TCP-Random-H-Clus/Reports"
+  if(dir.exists(str0)==FALSE){dir.create(str0)}
+
+  str2 = paste(str0, "/silhouette", sep="")
+  if(dir.exists(str2)==FALSE){dir.create(str2)}
+
+  str3 = paste(str2, "/", dataset_name, sep="")
+  if(dir.exists(str3)==FALSE){dir.create(str3)}
+
+  str1 = paste(str3, "/test", sep="")
+  if(dir.exists(str1)==FALSE){dir.create(str1)}
+
+  str4 = paste("cp -r ", diretorios$folderTestSilho, "/* ", str1, sep="")
+  print(system(str4))
+
 
 
 
@@ -422,43 +427,73 @@ if(parameters$Validation==1){
   cat("\n")
 
 
-  cat("\n\n#######################################################")
-  cat("\n# COPY TEST TO GOOGLE DRIVE                           #")
-  cat("\n#########################################################\n\n")
-  origem1 = parameters$Folders$folderTestMaF1
-  destino1 = paste("nuvem:Clus/Communities/Test/",
-                   similarity, "/Macro-F1/", dataset_name,
-                   "/H/Tested", sep="")
-  comando1 = paste("rclone copy ", origem1, " ",
-                   destino1, sep="")
-  cat("\n\n\n", comando1, "\n\n\n")
-  a = print(system(comando1))
-  a = as.numeric(a)
-  if(a != 0){
-    stop("Erro RCLONE")
-    quit("yes")
-  }
-  cat("\n\n")
+  cat("\n\n###################################################################")
+  cat("\n# ====> TCP-TR-NH: COPY TO HOME                                     #")
+  cat("\n#####################################################################\n\n")
+
+  str0 = "~/TCP-Random-H-Clus/Reports"
+  if(dir.exists(str0)==FALSE){dir.create(str0)}
+
+  str3 = paste(str0, "/", dataset_name, sep="")
+  if(dir.exists(str3)==FALSE){dir.create(str3)}
 
 
 
-cat("\n\n#######################################################")
-cat("\n# COPY REPORTS TO GOOGLE DRIVE                        #")
-cat("\n#######################################################\n\n")
-origem1 = parameters$Folders$folderReports
-destino1 = paste("nuvem:Clus/Communities/Test/",
-                 similarity, "/Macro-F1/", dataset_name,
-                 "/H/", sep="")
-comando1 = paste("rclone copy ", origem1, " ",
-                 destino1, sep="")
-cat("\n\n\n", comando1, "\n\n\n")
-a = print(system(comando1))
-a = as.numeric(a)
-if(a != 0){
-  stop("Erro RCLONE")
-  quit("yes")
-}
-cat("\n\n")
+  str0 = "~/TCP-Random-H-Clus/Reports"
+  if(dir.exists(str0)==FALSE){dir.create(str0)}
+
+  str2 = paste(str0, "/macro", sep="")
+  if(dir.exists(str2)==FALSE){dir.create(str2)}
+
+  str3 = paste(str2, "/", dataset_name, sep="")
+  if(dir.exists(str3)==FALSE){dir.create(str3)}
+
+  str1 = paste(str3, "/test", sep="")
+  if(dir.exists(str1)==FALSE){dir.create(str1)}
+
+  str4 = paste("cp -r ", diretorios$folderTestMaF1, "/* ", str1, sep="")
+  print(system(str4))
+
+
+
+
+  # cat("\n\n#######################################################")
+  # cat("\n# COPY TEST TO GOOGLE DRIVE                           #")
+  # cat("\n#########################################################\n\n")
+  # origem1 = parameters$Folders$folderTestMaF1
+  # destino1 = paste("nuvem:Clus/Communities/Test/",
+  #                  similarity, "/Macro-F1/", dataset_name,
+  #                  "/H/Tested", sep="")
+  # comando1 = paste("rclone copy ", origem1, " ",
+  #                  destino1, sep="")
+  # cat("\n\n\n", comando1, "\n\n\n")
+  # a = print(system(comando1))
+  # a = as.numeric(a)
+  # if(a != 0){
+  #   stop("Erro RCLONE")
+  #   quit("yes")
+  # }
+  # cat("\n\n")
+
+
+
+  # cat("\n\n#######################################################")
+  # cat("\n# COPY REPORTS TO GOOGLE DRIVE                        #")
+  # cat("\n#######################################################\n\n")
+  # origem1 = parameters$Folders$folderReports
+  # destino1 = paste("nuvem:Clus/Communities/Test/",
+  #                  similarity, "/Macro-F1/", dataset_name,
+  #                  "/H/", sep="")
+  # comando1 = paste("rclone copy ", origem1, " ",
+  #                  destino1, sep="")
+  # cat("\n\n\n", comando1, "\n\n\n")
+  # a = print(system(comando1))
+  # a = as.numeric(a)
+  # if(a != 0){
+  #   stop("Erro RCLONE")
+  #   quit("yes")
+  # }
+  # cat("\n\n")
 
   # str = paste(diretorios$folderRepMaF1, "/",
   #             parameters$Dataset.Name, sep="")
@@ -491,8 +526,8 @@ cat("\n\n")
 
 
 cat("\n\n###################################################################")
-  cat("\n# TCP-Random-H-Clus CLEAN                                            #")
-  cat("\n###################################################################\n\n")
+cat("\n# TCP-Random-H-Clus CLEAN                                            #")
+cat("\n###################################################################\n\n")
 str2 = paste("rm -rf ", diretorios$folderResults, sep="")
 print(system(str2))
 rm(list = ls())
@@ -501,8 +536,8 @@ gc()
 
 
 cat("\n\n###################################################################")
-  cat("\n# TCP-Random-H-Clus END                                              #")
-  cat("\n###################################################################\n")
+cat("\n# TCP-Random-H-Clus END                                              #")
+cat("\n###################################################################\n")
 
 rm(list = ls())
 

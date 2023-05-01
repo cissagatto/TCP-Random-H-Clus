@@ -1,7 +1,7 @@
 Config, Value
 Dataset_Path, "~/TCP-Random-H-Clus/Datasets"
 Temporary_Path, "/dev/shm/chrs-GpositiveGO"
-Partitions_Path, "~/TCP-Random-H-Clus/Partitions"
+Partitions_Path, "~/TCP-Random-H-Clus/Partitions/random"
 Validation, 1
 Similarity, random
 Dataset_Name, GpositiveGO
