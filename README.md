@@ -133,7 +133,8 @@ Rscript tcp.R "~/TCP-Random-H-Clus/config-files/Random-H/Macro-F1/chrma-Gpositiv
 [Click here]
 
 ## Acknowledgment
-This study is financed in part by the Coordenação de Aperfeiçoamento de Pessoal de Nível Superior - Brasil (CAPES) - Finance Code 001
+- This study is financed in part by the Coordenação de Aperfeiçoamento de Pessoal de Nível Superior - Brasil (CAPES) - Finance Code 001
+- This study is financed in part by the Conselho Nacional de Desenvolvimento Científico e Tecnológico - Brasil (CNPQ) - Process number 200371/2022-3.
 
 ## Links
 
